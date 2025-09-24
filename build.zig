@@ -119,6 +119,7 @@ pub fn build(b: *std.Build) void {
         if (target.result.os.tag == .macos) {
             imgui.linker_allow_shlib_undefined = true;
         }
+        imgui.root_module.addCMacro("IMGUI_IMPL_API", "extern \"C\"");
     }
 
     b.installArtifact(imgui);
@@ -277,7 +278,7 @@ pub fn build(b: *std.Build) void {
                     "libs/imgui/backends/imgui_impl_glfw.cpp",
                     "libs/imgui/backends/imgui_impl_opengl3.cpp",
                 },
-                .flags = &(cflags.* ++ .{"-DIMGUI_IMPL_OPENGL_LOADER_CUSTOM"}),
+                .flags = &(cflags.* ++ .{"-DIMGUI_IMPL_OPENGL_LOADER_IMGL3W"}),
             });
         },
         .glfw_dx12 => {
